@@ -12,4 +12,9 @@ class TaskModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void addTask(String text) {
+    tasks.add(Task(text: text));
+    notifyListeners();
+  }
 }

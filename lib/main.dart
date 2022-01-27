@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todoey/models/task.dart';
+import 'package:flutter_todoey/models/task_model.dart';
 import 'package:flutter_todoey/screens/task_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +13,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: TaskScreen(),
+    final tasks = List.of([
+      Task(text: 'Buy milk'),
+      Task(text: 'Buy eggs'),
+      Task(text: 'Buy bread')
+    ]);
+
+    return MaterialApp(
+      home: ChangeNotifierProvider(
+        create: (context) => TaskModel(tasks: tasks),
+        child: const TaskScreen(),
+      ),
     );
   }
 }

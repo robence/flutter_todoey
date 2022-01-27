@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todoey/models/task_model.dart';
+import 'package:provider/provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
   const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final taskModel = Provider.of<TaskModel>(context, listen: false);
+    final textController = TextEditingController();
+
     return Container(
       color: const Color(0xff757575),
       child: Container(
@@ -25,14 +30,18 @@ class AddTaskScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 28, color: Colors.lightBlue),
               ),
-              const TextField(
+              TextField(
+                controller: textController,
                 autofocus: true,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 24.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.lightBlue),
-                  onPressed: () {},
+                  onPressed: () {
+                    taskModel.addTask(textController.text);
+                    textController.clear();
+                  },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     child: Text(

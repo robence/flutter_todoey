@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todoey/models/task.dart';
 import 'package:flutter_todoey/models/task_model.dart';
 import 'package:flutter_todoey/screens/add_task_screen.dart';
 import 'package:flutter_todoey/widgets/task_card.dart';
@@ -11,14 +10,19 @@ class TaskScreen extends StatelessWidget {
   const TaskScreen({Key? key}) : super(key: key);
 
   void onPressActionButton(BuildContext context) {
+    final taskModel = Provider.of<TaskModel>(context, listen: false);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (BuildContext context) => SingleChildScrollView(
-        child: Container(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: const AddTaskScreen(),
+      builder: (BuildContext context) => ChangeNotifierProvider.value(
+        value: taskModel,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: const AddTaskScreen(),
+          ),
         ),
       ),
     );
@@ -26,33 +30,24 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = List.of([
-      Task(text: 'Buy milk'),
-      Task(text: 'Buy eggs'),
-      Task(text: 'Buy bread')
-    ]);
-
-    return ChangeNotifierProvider(
-      create: (context) => TaskModel(tasks: tasks),
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.lightBlue,
+      floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlue,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.lightBlue,
-          onPressed: () => onPressActionButton(context),
-          child: const Icon(
-            Icons.add,
-            size: 44.0,
-          ),
+        onPressed: () => onPressActionButton(context),
+        child: const Icon(
+          Icons.add,
+          size: 44.0,
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            TaskHeader(),
-            TaskCard(
-              child: TaskList(),
-            )
-          ],
-        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          TaskHeader(),
+          TaskCard(
+            child: TaskList(),
+          )
+        ],
       ),
     );
   }
