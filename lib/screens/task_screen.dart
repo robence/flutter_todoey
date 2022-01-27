@@ -7,6 +7,14 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.lightBlue,
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          size: 44.0,
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,18 +53,47 @@ class TaskScreen extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
+          const TaskCard()
+        ],
+      ),
+    );
+  }
+}
+
+class TaskCard extends StatelessWidget {
+  const TaskCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final tasks = List.of(['Buy milk', 'Buy eggs', 'Buy bread']);
+
+    return Expanded(
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+                tasks[index],
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
                 ),
               ),
-            ),
-          ),
-        ],
+              trailing: Checkbox(
+                value: true,
+                onChanged: (value) {},
+              ),
+            );
+          },
+        ),
       ),
     );
   }
