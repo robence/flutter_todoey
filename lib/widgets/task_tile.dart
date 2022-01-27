@@ -18,10 +18,12 @@ class TaskTile extends StatelessWidget {
     return ListTile(
       title: Text(
         task.text,
-        style: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 18,
-        ),
+        style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            decoration: task.isChecked
+                ? TextDecoration.lineThrough
+                : TextDecoration.none),
       ),
       trailing: Checkbox(
         value: task.isChecked,
