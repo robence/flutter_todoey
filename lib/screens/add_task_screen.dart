@@ -41,6 +41,7 @@ class AddTaskScreen extends StatelessWidget {
                   onPressed: () {
                     taskModel.addTask(textController.text);
                     textController.clear();
+                    Navigator.pop(context);
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
