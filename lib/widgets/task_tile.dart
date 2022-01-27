@@ -16,6 +16,9 @@ class TaskTile extends StatelessWidget {
     final taskModel = Provider.of<TaskModel>(context, listen: false);
 
     return ListTile(
+      onLongPress: () {
+        taskModel.removeTask(task);
+      },
       title: Text(
         task.text,
         style: TextStyle(

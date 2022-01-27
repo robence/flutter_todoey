@@ -17,4 +17,9 @@ class TaskModel extends ChangeNotifier {
     tasks.add(Task(text: text));
     notifyListeners();
   }
+
+  void removeTask(Task task) {
+    tasks.removeWhere((element) => element.text == task.text);
+    notifyListeners();
+  }
 }
